@@ -1,0 +1,6 @@
+connexion==2.5.1
+swagger-ui==0.1.2
+SQLAlchemy==1.3.13
+pykafka==2.8.0
+Flask==1.1.1
+Flask-Cors==3.0.8

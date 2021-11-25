@@ -1,0 +1,7 @@
+This is an application for a new global lodging service, for both locals and tourists, that allows for immediate requests for local home rentals and scheduling of pooled homestays at various real estate listings.
+The events are immediate residential rental requests and schedule requests for a future lodge at a private residence. The immediate request events are expected to be moderate on Friday and Saturday evenings with as many as 5000 requests per second for people to make a quick booking for an impromptu event while the schedule requests are expected to be very high on Sunday evenings as business people plan their lodging for the week with as many as 10000 requests per second.
+The requests are stored to allow the following:
+•Automatic assignment of immediate residential requests to available homes
+•Manual viewing and planning of shared homestays by businessmen and tourists
+•Analysis of the data to produce reporting of various metrics such as requests fulfilled vs. requests unfilled to help optimize the service
+Users of the system are customers (i.e., those wanting a place for an event or a place to stay), landlord and management (i.e., reports)

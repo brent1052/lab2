@@ -1,0 +1,123 @@
+swagger: '2.0'
+info:
+  description: RESTful API that receives events from immediate and scheduled requests for residential rental requests and future lodging respectively
+  version: 1.0.0
+  title: Home Rental and Lodging Requests API
+
+paths:
+  /rental/immediate:
+    get:
+      summary: gets a list of all immediate residence rentals
+      operationId: app.get_immediate_residence
+      description: get a list of all immediate residence rentals
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: startDate
+        description: pass an mandatory start date for looking up the events
+        required: true
+        type: string
+        format: date-time
+      - in: query
+        name: endDate
+        description: pass an mandatory end date for looking up rental events
+        required: true
+        type: string
+        format: date-time
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ResidenceDetails'
+        400:
+          description: bad input parameter or startDate/endDate not specified
+
+  /rental/schedule:
+    get:
+      summary: gets blood pressure reading
+      operationId: app.get_schedule_residence
+      description: get a list of all schedule residence rentals
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: startDate
+        description: pass an mandatory start date for looking up the events
+        required: true
+        type: string
+        format: date-time
+      - in: query
+        name: endDate
+        description: pass an mandatory end date for looking up rental events
+        required: true
+        type: string
+        format: date-time
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FutureResidenceDetails'
+        400:
+          description: bad input parameter or startDate/endDate not specified
+
+definitions:
+  ResidenceDetails:
+    type: object
+    required:
+    - user_id
+    - user_name
+    - residence_type
+    - phone_num
+    - capacity
+    properties:
+      user_id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      user_name:
+        type: string
+        example: WongDerek94
+      residence_type:
+        type: string
+        example: home
+      phone_num:
+        type: string
+        example: 604-818-5033
+      capacity:
+        type: number
+        example: 10
+  FutureResidenceDetails:
+    type: object
+    required:
+    - user_id
+    - user_name
+    - residence_type
+    - phone_num
+    - capacity
+    - date
+    properties:
+      user_id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      user_name:
+        type: string
+        example: WongDerek94
+      residence_type:
+        type: string
+        example: home
+      phone_num:
+        type: string
+        example: 604-818-5033
+      capacity:
+        type: number
+        example: 10
+      date:
+        type: string
+        format: date-time
+        example: 2020-01-17T17:32:28Z

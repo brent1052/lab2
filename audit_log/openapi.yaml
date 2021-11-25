@@ -1,0 +1,69 @@
+swagger: '2.0'
+info:
+  description: RESTful API that receives historical events from immediate and scheduled rental requests
+  version: 1.0.0
+  title: Home Rental and Lodging Requests API
+
+paths:
+  /rental/immediate/common-residence:
+    get:
+      summary: returns a string of the most commonly requested immediate residential type
+      operationId: app.get_most_common_immediate_residential_request
+      description: get a string of the most common residential request to date
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            $ref: '#/definitions/ResidenceDetails'
+        400:
+          description: bad input parameter
+
+  /rental/schedule/common-residence:
+    get:
+      summary: returns a string of the most commonly requested scheduled residential type between specific dates
+      operationId: app.get_most_common_scheduled_residential_request
+      description: get a string of the most common residential request to date from a specified date
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: startDate
+        description: pass an mandatory start date for looking up the events
+        required: true
+        type: string
+        format: date-time
+      - in: query
+        name: endDate
+        description: pass an mandatory end date for looking up rental events
+        required: true
+        type: string
+        format: date-time
+      responses:
+        200:
+          description: string result from processed residential requests
+          schema:
+            $ref: '#/definitions/ResidenceDetails'
+        400:
+          description: bad input parameter or startDate/endDate not specified
+
+definitions:
+  ResidenceDetails:
+    type: object
+    required:
+    - from_date
+    - to_date
+    - residence_type
+    properties:
+      from_date:
+        type: string
+        format: date-time
+        example: 2020-01-17T17:32:28Z
+      to_date:
+        type: string
+        format: date-time
+        example: 2020-01-17T17:32:28Z
+      residence_type:
+        type: string
+        example: home

@@ -1,0 +1,44 @@
+swagger: '2.0'
+info:
+  description: RESTful API that receives newest events from Data Storage Service and generates storage statistics on
+    immediate and scheduled requests for residential rental requests
+  version: 1.0.0
+  title: Home Rental and Lodging Requests API
+
+paths:
+  /events/stats:
+    get:
+      summary: gets events stats for immediate and scheduled requests for residential rental requests
+      operationId: app.get_residential_request_stats
+      description: Gets residential rental requests
+      produces:
+      - application/json
+      responses:
+        200:
+          description: current stats
+          schema:
+            $ref: '#/definitions/ResidentialRequestStats'
+        404:
+          description: stats do not exist
+
+definitions:
+  ResidentialRequestStats:
+    type: object
+    required:
+    - num_immediate_requests
+    - num_scheduled_requests
+    - updated_timestamp
+    properties:
+      num_immediate_requests:
+        type: integer
+        example: 1024
+      num_scheduled_requests:
+        type: integer
+        example: 1024
+      total_requests:
+        type: integer
+        example: 2048
+      updated_timestamp:
+        type: string
+        format: date-time
+        example: 2016-08-29T09:12:33.001Z

@@ -1,0 +1,7 @@
+version: 1
+datastore:
+  filename: data.json
+scheduler:
+  period_sec: 5
+eventstore:
+  url: http://ms-vm.westus.cloudapp.azure.com:8090

@@ -1,0 +1,109 @@
+swagger: '2.0'
+info:
+  description: RESTful API that receives events from immediate and scheduled requests for residential rental requests and future lodging respectively
+  version: 1.0.0
+  title: Home Rental and Lodging Requests API
+
+paths:
+  /rental/immediate:
+    post:
+      summary: automatically assigns an available residence
+      operationId: app.assign_residence
+      description: store a immediate rental property
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: residenceDetails
+        description: Requested home details
+        schema:
+          $ref: '#/definitions/ResidenceDetails'
+      responses:
+        201:
+          description: residence assigned
+        400:
+          description: invalid input, object invalid
+        409:
+          description: residence is already assigned to another request
+
+  /rental/schedule:
+    post:
+      summary: schedule a residence to a traveller
+      operationId: app.schedule_residence
+      description: store a future rental property
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: residenceDetails
+        description: Requested home details
+        schema:
+          $ref: '#/definitions/FutureResidenceDetails'
+      responses:
+        201:
+          description: residence assigned
+        400:
+          description: invalid input, object invalid
+        409:
+          description: residence is already assigned to another request
+
+definitions:
+  ResidenceDetails:
+    type: object
+    required:
+    - user_id
+    - user_name
+    - residence_type
+    - phone_num
+    - capacity
+    properties:
+      user_id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      user_name:
+        type: string
+        example: WongDerek94
+      residence_type:
+        type: string
+        example: home
+      phone_num:
+        type: string
+        example: 604-818-5033
+      capacity:
+        type: number
+        example: 10
+  FutureResidenceDetails:
+    type: object
+    required:
+    - user_id
+    - user_name
+    - residence_type
+    - phone_num
+    - capacity
+    - date
+    properties:
+      user_id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      user_name:
+        type: string
+        example: WongDerek94
+      residence_type:
+        type: string
+        example: home
+      phone_num:
+        type: string
+        example: 604-818-5033
+      capacity:
+        type: number
+        example: 10
+      date:
+        type: string
+        format: date-time
+        example: 2020-01-17T17:32:28Z
